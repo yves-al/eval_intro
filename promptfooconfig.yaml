@@ -11,13 +11,16 @@ providers:
     label: ask-hr-v1
     config:
       base_url_env: ASK_HR_BASE_URL
-  # Uncomment to run the same suite against v1.1 side by side:
-  # - id: file://lumora_provider.py
-  #   label: ask-hr-v1.1
-  #   config:
-  #     base_url_env: ASK_HR_V11_BASE_URL
+  # Same suite against v1.1. Run one version only with: --filter-providers ask-hr-v1
+  - id: file://lumora_provider.py
+    label: ask-hr-v1.1
+    config:
+      base_url_env: ASK_HR_V11_BASE_URL
 
 defaultTest:
+  options:
+    # LLM-judge prompt with explicit grading rules (Required / Optional / Fail if).
+    rubricPrompt: file://tests/judge_prompt.json
   vars:
     # Fixed conversation clock so date-dependent answers are reproducible.
     # Balances in employees.json are as of 2026-10-24.
@@ -32,3 +35,6 @@ defaultTest:
       value: file://tests/assertions/no_unexpected_case.js
 
 tests: file://tests/knowledge_base_tests.yaml
+
+# Raw results of every run; summarize with: python3 scripts/summarize_results.py
+outputPath: results/promptfoo-latest.json

@@ -3,3 +3,5 @@
 .venv/
 __pycache__/
 *.py[cod]
+# Scratch output of plain `promptfoo eval` runs (overwritten every run)
+results/promptfoo-latest.json
