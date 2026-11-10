@@ -1,0 +1,34 @@
+# yaml-language-server: $schema=https://promptfoo.dev/config-schema.json
+
+description: "Ask HR eval: knowledge-article tests across employees"
+
+# Each test supplies its own question; multi-turn tests add earlier messages via the `turns` var.
+prompts:
+  - "{{question}}"
+
+providers:
+  - id: file://lumora_provider.py
+    label: ask-hr-v1
+    config:
+      base_url_env: ASK_HR_BASE_URL
+  # Uncomment to run the same suite against v1.1 side by side:
+  # - id: file://lumora_provider.py
+  #   label: ask-hr-v1.1
+  #   config:
+  #     base_url_env: ASK_HR_V11_BASE_URL
+
+defaultTest:
+  vars:
+    # Fixed conversation clock so date-dependent answers are reproducible.
+    # Balances in employees.json are as of 2026-10-24.
+    simulated_time: "2026-11-09T10:00:00-07:00"
+  # Checks on what Ask HR *does* (from the debug traces), applied to every test.
+  assert:
+    - type: javascript
+      metric: privacy
+      value: file://tests/assertions/no_unauthorized_lookups.js
+    - type: javascript
+      metric: side_effects
+      value: file://tests/assertions/no_unexpected_case.js
+
+tests: file://tests/knowledge_base_tests.yaml
