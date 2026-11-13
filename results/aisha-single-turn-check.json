@@ -1,0 +1,240 @@
+[
+ {
+  "version": "ASK_HR_BASE_URL",
+  "q": "payday",
+  "run": 0,
+  "reply": "You\u2019ll be paid on Wednesday, November 25, 2026, for the pay period ending November 21.",
+  "tools": [
+   [
+    "get_my_profile",
+    null
+   ]
+  ],
+  "case": null
+ },
+ {
+  "version": "ASK_HR_BASE_URL",
+  "q": "payday",
+  "run": 1,
+  "reply": "You\u2019ll be paid on Wednesday, November 25, 2026, for the pay period ending November 21.",
+  "tools": [
+   [
+    "get_my_profile",
+    null
+   ]
+  ],
+  "case": null
+ },
+ {
+  "version": "ASK_HR_BASE_URL",
+  "q": "payday",
+  "run": 2,
+  "reply": "You\u2019ll be paid on Wednesday, November 25, 2026, for the pay period ending November 21.",
+  "tools": [
+   [
+    "get_my_profile",
+    null
+   ]
+  ],
+  "case": null
+ },
+ {
+  "version": "ASK_HR_BASE_URL",
+  "q": "xmas",
+  "run": 0,
+  "reply": "Yes. Your store is open on Christmas Eve. As an hourly store employee, if you work that company holiday, you receive 1.5 times your base rate for the hours worked.",
+  "tools": [
+   [
+    "get_my_profile",
+    null
+   ]
+  ],
+  "case": null
+ },
+ {
+  "version": "ASK_HR_BASE_URL",
+  "q": "xmas",
+  "run": 1,
+  "reply": "Yes. Your store is open on Christmas Eve. As an hourly store employee, if you work that company holiday, you receive holiday premium pay at 1.5 times your base rate for the hours worked.",
+  "tools": [
+   [
+    "get_my_profile",
+    null
+   ]
+  ],
+  "case": null
+ },
+ {
+  "version": "ASK_HR_BASE_URL",
+  "q": "xmas",
+  "run": 2,
+  "reply": "Yes. Tamarack stores are open on Christmas Eve. Since you\u2019re an hourly store employee, if you work that company holiday, you receive holiday premium pay at 1.5 times your base rate for the hours worked.",
+  "tools": [
+   [
+    "get_my_profile",
+    null
+   ]
+  ],
+  "case": null
+ },
+ {
+  "version": "ASK_HR_BASE_URL",
+  "q": "dental",
+  "run": 0,
+  "reply": "BrightSmile Dental for employee-only coverage costs $4.50 per paycheck, or $117 per year in 2026.",
+  "tools": [
+   [
+    "get_my_profile",
+    null
+   ]
+  ],
+  "case": null
+ },
+ {
+  "version": "ASK_HR_BASE_URL",
+  "q": "dental",
+  "run": 1,
+  "reply": "BrightSmile Dental for employee-only coverage costs $4.50 per paycheck, or $117 per year. The annual amount assumes 26 paychecks; if you\u2019re enrolled for only part of the year, you pay only for the paychecks you\u2019re enrolled.",
+  "tools": [
+   [
+    "get_my_profile",
+    null
+   ]
+  ],
+  "case": null
+ },
+ {
+  "version": "ASK_HR_BASE_URL",
+  "q": "dental",
+  "run": 2,
+  "reply": "Dental coverage for just you costs $4.50 per paycheck, or $117 per year, in 2026.",
+  "tools": [
+   [
+    "get_my_profile",
+    null
+   ]
+  ],
+  "case": null
+ },
+ {
+  "version": "ASK_HR_V11_BASE_URL",
+  "q": "payday",
+  "run": 0,
+  "reply": "You\u2019ll be paid on Wednesday, November 25, for the pay period ending Saturday, November 21.",
+  "tools": [
+   [
+    "get_my_profile",
+    null
+   ]
+  ],
+  "case": null
+ },
+ {
+  "version": "ASK_HR_V11_BASE_URL",
+  "q": "payday",
+  "run": 1,
+  "reply": "You\u2019ll be paid on Wednesday, November 25, for the pay period ending Saturday, November 21.",
+  "tools": [
+   [
+    "get_my_profile",
+    null
+   ]
+  ],
+  "case": null
+ },
+ {
+  "version": "ASK_HR_V11_BASE_URL",
+  "q": "payday",
+  "run": 2,
+  "reply": "You\u2019ll be paid on Wednesday, November 25, 2026, for the pay period ending November 21.",
+  "tools": [
+   [
+    "get_my_profile",
+    null
+   ]
+  ],
+  "case": null
+ },
+ {
+  "version": "ASK_HR_V11_BASE_URL",
+  "q": "xmas",
+  "run": 0,
+  "reply": "Yes. Your store is open on Christmas Eve. As an hourly store employee, if you work that company holiday, you receive holiday premium pay at 1.5 times your base rate for the hours worked.",
+  "tools": [
+   [
+    "get_my_profile",
+    null
+   ]
+  ],
+  "case": null
+ },
+ {
+  "version": "ASK_HR_V11_BASE_URL",
+  "q": "xmas",
+  "run": 1,
+  "reply": "Yes. Your store is open on Christmas Eve, and as an hourly store employee, you receive holiday premium pay at 1.5 times your base rate for the hours you work that day.",
+  "tools": [
+   [
+    "get_my_profile",
+    null
+   ],
+   [
+    "list_company_holidays",
+    null
+   ]
+  ],
+  "case": null
+ },
+ {
+  "version": "ASK_HR_V11_BASE_URL",
+  "q": "xmas",
+  "run": 2,
+  "reply": "Yes. Tamarack stores are open on Christmas Eve, and hourly store employees who work a company holiday receive 1.5 times their base rate for the hours worked. So if you work Christmas Eve, you\u2019ll receive holiday premium pay.",
+  "tools": [
+   [
+    "get_my_profile",
+    null
+   ]
+  ],
+  "case": null
+ },
+ {
+  "version": "ASK_HR_V11_BASE_URL",
+  "q": "dental",
+  "run": 0,
+  "reply": "BrightSmile Dental for employee-only coverage costs $4.50 per paycheck, or $117 per year in 2026.",
+  "tools": [
+   [
+    "get_my_profile",
+    null
+   ]
+  ],
+  "case": null
+ },
+ {
+  "version": "ASK_HR_V11_BASE_URL",
+  "q": "dental",
+  "run": 1,
+  "reply": "BrightSmile Dental for employee-only coverage costs $4.50 per paycheck, or $117 per year in 2026.",
+  "tools": [
+   [
+    "get_my_profile",
+    null
+   ]
+  ],
+  "case": null
+ },
+ {
+  "version": "ASK_HR_V11_BASE_URL",
+  "q": "dental",
+  "run": 2,
+  "reply": "BrightSmile Dental for employee-only coverage costs $4.50 per paycheck, or $117 per year in 2026.",
+  "tools": [
+   [
+    "get_my_profile",
+    null
+   ]
+  ],
+  "case": null
+ }
+]

@@ -1,0 +1,156 @@
+[
+ {
+  "version": "ASK_HR_BASE_URL",
+  "employee_id": "E1022",
+  "reply": "You earn 4 hours of PTO per biweekly pay period at your current part-time rate.",
+  "tool": {
+   "accrual_basis": "part_time",
+   "completed_years": 1,
+   "tier": "0 to 2 years",
+   "rate_per_pay_period": 4
+  }
+ },
+ {
+  "version": "ASK_HR_BASE_URL",
+  "employee_id": "E1042",
+  "reply": "You earn 5 hours of PTO per biweekly pay period at your current tier.",
+  "tool": {
+   "accrual_basis": "part_time",
+   "completed_years": 3,
+   "tier": "2 to 5 years",
+   "rate_per_pay_period": 5
+  }
+ },
+ {
+  "version": "ASK_HR_BASE_URL",
+  "employee_id": "E1011",
+  "reply": "You earn 6 hours of PTO per pay period at your current rate. Your balance is below the 80-hour part-time cap, so the full accrual can apply unless your balance reaches the cap.",
+  "tool": {
+   "accrual_basis": "part_time",
+   "completed_years": 5,
+   "tier": "5 to 10 years",
+   "rate_per_pay_period": 6
+  }
+ },
+ {
+  "version": "ASK_HR_BASE_URL",
+  "employee_id": "E1014",
+  "reply": "You earn 6 hours of PTO each pay period. Your current tier is 5 to 10 years of service.",
+  "tool": {
+   "accrual_basis": "part_time",
+   "completed_years": 6,
+   "tier": "5 to 10 years",
+   "rate_per_pay_period": 6
+  }
+ },
+ {
+  "version": "ASK_HR_BASE_URL",
+  "employee_id": "E1118",
+  "reply": "You earn 7 hours of PTO per pay period. Your balance is currently at the 80-hour cap, so accrual pauses while you\u2019re at the cap and resumes after your balance drops below it.",
+  "tool": {
+   "accrual_basis": "part_time",
+   "completed_years": 12,
+   "tier": "10+ years",
+   "rate_per_pay_period": 7
+  }
+ },
+ {
+  "version": "ASK_HR_BASE_URL",
+  "employee_id": "E1115",
+  "reply": "You earn 7 hours of PTO per biweekly pay period at your current 10+ years-of-service tier. Your balance is below the 80-hour cap, so the cap does not pause your accrual right now.",
+  "tool": {
+   "accrual_basis": "part_time",
+   "completed_years": 17,
+   "tier": "10+ years",
+   "rate_per_pay_period": 7
+  }
+ },
+ {
+  "version": "ASK_HR_BASE_URL",
+  "employee_id": "E1120",
+  "reply": "You earn 7 hours of PTO per pay period at your current 10+ years-of-service tier. Your current pay period began November 8, 2026.",
+  "tool": {
+   "accrual_basis": "part_time",
+   "completed_years": 18,
+   "tier": "10+ years",
+   "rate_per_pay_period": 7
+  }
+ },
+ {
+  "version": "ASK_HR_V11_BASE_URL",
+  "employee_id": "E1022",
+  "reply": "You earn 4 hours of PTO each biweekly pay period. You\u2019re currently in the 0\u20132 years of service tier.",
+  "tool": {
+   "accrual_basis": "part_time",
+   "completed_years": 1,
+   "tier": "0 to 2 years",
+   "rate_per_pay_period": 4
+  }
+ },
+ {
+  "version": "ASK_HR_V11_BASE_URL",
+  "employee_id": "E1042",
+  "reply": "You earn 5 hours of PTO per biweekly pay period at your current part-time tier.",
+  "tool": {
+   "accrual_basis": "part_time",
+   "completed_years": 3,
+   "tier": "2 to 5 years",
+   "rate_per_pay_period": 5
+  }
+ },
+ {
+  "version": "ASK_HR_V11_BASE_URL",
+  "employee_id": "E1011",
+  "reply": "You earn 6 hours of PTO per biweekly pay period. Your current period is in the 5-to-10-year tier, which applies based on your completed service on the period\u2019s first day.",
+  "tool": {
+   "accrual_basis": "part_time",
+   "completed_years": 5,
+   "tier": "5 to 10 years",
+   "rate_per_pay_period": 6
+  }
+ },
+ {
+  "version": "ASK_HR_V11_BASE_URL",
+  "employee_id": "E1014",
+  "reply": "You earn 6 hours of PTO each biweekly pay period. Your current tier is 5\u201310 years of service.",
+  "tool": {
+   "accrual_basis": "part_time",
+   "completed_years": 6,
+   "tier": "5 to 10 years",
+   "rate_per_pay_period": 6
+  }
+ },
+ {
+  "version": "ASK_HR_V11_BASE_URL",
+  "employee_id": "E1118",
+  "reply": "You earn 7 hours of PTO per pay period at your current part-time tier. Your balance is currently at the 80-hour cap, so accrual pauses until your balance drops below the cap.",
+  "tool": {
+   "accrual_basis": "part_time",
+   "completed_years": 12,
+   "tier": "10+ years",
+   "rate_per_pay_period": 7
+  }
+ },
+ {
+  "version": "ASK_HR_V11_BASE_URL",
+  "employee_id": "E1115",
+  "reply": "You earn 7 hours of PTO per pay period at your current part-time tenure tier. Since your balance is 77.5 hours and your part-time cap is 80 hours, you may accrue only 2.5 hours in a pay period that brings you to the cap; accrual pauses while you\u2019re at the cap.",
+  "tool": {
+   "accrual_basis": "part_time",
+   "completed_years": 17,
+   "tier": "10+ years",
+   "rate_per_pay_period": 7
+  }
+ },
+ {
+  "version": "ASK_HR_V11_BASE_URL",
+  "employee_id": "E1120",
+  "reply": "You earn 7 hours of PTO per biweekly pay period at your current part-time rate. Your current tier is 10+ years of service.",
+  "tool": {
+   "accrual_basis": "part_time",
+   "completed_years": 18,
+   "tier": "10+ years",
+   "rate_per_pay_period": 7
+  }
+ }
+]

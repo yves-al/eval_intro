@@ -12,9 +12,18 @@ MAX_ATTEMPTS = 3
 
 
 def _post_chat(base_url, headers, payload):
-    """POST /chat, retrying on 502 upstream_unavailable. Returns (ok, data_or_error)."""
+    """POST /chat, retrying on 502 upstream_unavailable and on dropped connections.
+    Returns (ok, data_or_error)."""
     for attempt in range(1, MAX_ATTEMPTS + 1):
-        resp = requests.post(base_url + "/chat", json=payload, headers=headers, timeout=120)
+        try:
+            resp = requests.post(base_url + "/chat", json=payload, headers=headers, timeout=120)
+        except requests.ConnectionError:
+            # The sandbox sometimes closes the connection without answering. A long
+            # conversation sends many requests per run, so one drop would lose the run.
+            if attempt < MAX_ATTEMPTS:
+                time.sleep(2 * attempt)
+                continue
+            raise
         try:
             data = resp.json()
         except ValueError:
@@ -71,6 +80,7 @@ def call_api(prompt, options, context):
     conversation_id = None
     cases = []
     transcript = []
+    all_traces = []
     data = {}
 
     try:
@@ -90,7 +100,17 @@ def call_api(prompt, options, context):
             conversation_id = data.get("conversation_id", conversation_id)
             if data.get("case"):
                 cases.append(data["case"])
-            transcript.append({"user": message, "reply": data.get("reply")})
+            # Every turn's traces, tagged with the turn number (1-based), so trace
+            # checks such as no_unauthorized_lookups.js can see earlier turns too.
+            all_traces += [{**t, "turn": i + 1} for t in (data.get("traces") or [])]
+            # Per-turn record, so a check can grade any turn, not only the last:
+            # its reply, its citations and the HR case it opened (if any).
+            transcript.append({
+                "user": message,
+                "reply": data.get("reply"),
+                "citations": data.get("citations") or [],
+                "case": data.get("case"),
+            })
 
         return {
             "output": data.get("reply", json.dumps(data)),
@@ -102,9 +122,10 @@ def call_api(prompt, options, context):
                 "case": data.get("case"),
                 "traces": data.get("traces") or [],
                 "latency_ms": data.get("latency_ms"),
-                # Every HR case opened in any turn of the conversation
-                "cases": cases,
-                "transcript": transcript,
+                # Every turn of the conversation
+                "cases": cases,  # every HR case opened, in any turn
+                "all_traces": all_traces,  # traces of every turn, each with "turn"
+                "transcript": transcript,  # [{user, reply, citations, case}] per turn
             },
         }
 

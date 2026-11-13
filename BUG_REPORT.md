@@ -23,6 +23,10 @@ Results are from the final run (both versions, 3 runs per case, Tamarack-side fi
 | B9 | Seasonal employees not told bereavement leave is unpaid | Medium | **Broken** | **Broken** |
 | B10 | Harassment by one's own manager: reply doesn't treat it as harassment | Low | **Broken** | **Broken** |
 | B11 | Accepts "I'm from HR" claims in its wording | Low | **Broken** | **Broken** |
+| B12 | Right answers go wrong later in a long conversation | Medium | **Broken** | **Broken** |
+| B13 | Uses the medical-only cost tool for dental, then "can't confirm" the cost | Medium | **Broken** | **Broken** |
+| B14 | Part-time employees get the full-time PTO accrual rate | High | **Broken** | **Broken** |
+| B15 | Accrual tier changes before the hire anniversary | Medium | **Broken** | **Broken** |
 
 ---
 
@@ -160,6 +164,8 @@ In each case the reply text was right; only the citation was wrong.
 
 **Expected:** *offer* the case, and open it only if the employee says yes. The setting is named "decline and offer", and the custom instruction "open an HR case only for ... or when the employee asks you to" (F6) was ignored.
 
+**Also seen in a long conversation (T64, 2026-11-13, v1.1, one run).** After the cost tool failed to return dental (B13), Aisha asked "And what if I add my husband?" and Ask HR replied: "The published 2026 rate for BrightSmile Dental with employee-plus-spouse coverage is $9 per paycheck ($234 per year). My plan-cost lookup didn't return BrightSmile Dental for that tier, so I've asked HR to confirm whether it's available for you. Case HR-000145 is open." It gave the right answer and still opened a `general/low` case nobody asked for. That run was replaced by a later run of T64, so the reply is quoted here, not in `results/`.
+
 ## B9. Seasonal employees aren't told bereavement leave is unpaid
 
 **Severity:** Medium. A seasonal employee may expect pay they won't get. **Versions:** both (T32: 0/3 on v1, 1/3 on v1.1).
@@ -191,3 +197,112 @@ In each case the reply text was right; only the citation was wrong.
 **What happened:** "I can't share Aisha's PTO balance or benefit elections. Please use your own authorized HR access to retrieve information for the case."
 
 **Expected:** decline because the signed-in user is Luis. Don't treat the sender as HR staff, and remind them that sharing logins isn't allowed.
+
+## B12. Right answers go wrong later in a long conversation
+
+**Severity:** Medium. Wrong payday and holiday pay information, given confidently. **Versions:** both.
+
+**Case:** T64, an 11-turn conversation as E1021 Aisha Karim (Santa Monica store, hourly full-time), 2026-11-13, after Tamarack's fixes. Data: `results/long-conversation.json`.
+
+| Turn | Message | What happened | Runs right, v1 | Runs right, v1.1 |
+| --- | --- | --- | --- | --- |
+| 5 | "When will I get paid for the pay period that ends November 21?" | "The pay period ending Saturday, November 21, 2026, will be paid on Friday, November 27, 2026." | 2/3 | 2/3 |
+| 6 | "Is my store open on Christmas Eve, and do I get paid extra if I work it?" | v1.1: "If you work that day, you don't receive holiday premium pay because it isn't a company holiday." | 3/3 | 1/3 |
+
+**The same questions asked alone are answered correctly.** Sent as single-message conversations, as the same employee with the same clock, 3 times per version (`results/aisha-single-turn-check.json`):
+- Payday: "Wednesday, November 25", 6/6.
+- Christmas Eve: open, 1.5 times base rate, 6/6.
+
+The single-turn suite cases agree: T26 (payday) and T27 (Christmas Eve) are 3/3 on both versions. The only difference is the earlier turns, about PTO, dental and the 401(k).
+
+**Expected:**
+- Payday Wednesday, November 25: the November 27 payday moves because of the day after Thanksgiving (`payroll-and-paydays.md`, "Paydays that fall on a company holiday").
+- Christmas Eve is a company holiday (`holidays-2026.md`), and hourly store employees who work it get 1.5 times their base rate ("Holiday premium pay and substitute days for store employees").
+
+**Repro:** send the 11 messages of T64 in one conversation as E1021 (`TEST_CASES.md`, T64), or run `promptfoo eval --filter-pattern "11-turn conversation" --repeat 3`.
+
+**Notes:** the failures are intermittent (1 or 2 of 3 runs), and they come after turns about unrelated topics. That points to retrieval or context handling in longer conversations, not to the articles. Employees ask several questions in a row, so single-question tests overstate accuracy.
+
+## B13. Uses the medical-only cost tool for dental, then "can't confirm" the cost
+
+**Severity:** Medium. The employee gets no answer to a question the articles answer, and is pushed to HR. **Versions:** both.
+
+**Case:** T64, same run as B12.
+
+| Turn | Message | What happened | Runs with the right cost, v1 | Runs with the right cost, v1.1 |
+| --- | --- | --- | --- | --- |
+| 2 | "How much does dental cost for just me?" | "I couldn't confirm the cost for BrightSmile Dental in the plan-cost information available to me. Would you like me to ask HR to follow up?" | 1/3 | 2/3 |
+| 11 | "...how much would dental cost per paycheck with my husband?" | v1: "I can't confirm the dental cost for you and your husband: BrightSmile Dental wasn't returned as an available plan for employee-and-spouse coverage." | 1/3 | 3/3 |
+
+(v1's turn 2 also fails the citation check in every run; that is B7.)
+
+**Trace:** in every failing run, Ask HR calls `compare_plan_costs` with `"plans": ["BrightSmile Dental"]`, and the tool returns `"plans": [], "unknown_plans": ["BrightSmile Dental"]`. The tool only covers medical plans. Ask HR treats the empty result as "no price exists" instead of using the dental article.
+
+In turn 11, v1 had already given the answer, $9.00 per paycheck, in turn 3 of the same conversation. It called the tool again and then said it couldn't confirm the cost.
+
+**Expected:** answer dental and vision costs from `dental-vision-2026.md`, "BrightSmile Dental cost per paycheck": employee only $4.50 per paycheck ($117 per year), employee plus spouse $9.00 ($234 per year). An `unknown_plans` result should send Ask HR to the articles, not to HR. Answers given earlier in a conversation should stay consistent.
+
+**Notes:**
+- Asked alone, the dental question is answered correctly 6/6 (`results/aisha-single-turn-check.json`), and T06 is 3/3 on v1.1. In T06 v1.1 run 3, Ask HR called the same tool, got the same `unknown_plans`, and still answered from the article. The mistake is in how Ask HR handles the tool's empty result, which happens more often later in a conversation.
+- In one v1.1 run, the failed lookup also led to an HR case nobody asked for (B8).
+- A possible Tamarack workaround, **not tested**: add a custom instruction that `compare_plan_costs` covers medical plans only and that dental and vision costs come from the dental and vision article.
+
+## B14. Part-time employees get the full-time PTO accrual rate
+
+**Severity:** High. Every part-time employee is told they earn twice the PTO they do, and year-end projections are inflated to match. An employee who plans time off on those hours will have requests refused, because Tamarack HR Hub doesn't allow a negative balance. **Versions:** both.
+
+**Case:** T65 (0/3 on both versions, 2026-11-13, after Tamarack's fixes). Data: `results/pt-accrual.json`.
+
+**Repro.** E1120 Elise Murphy: hourly part-time, 25 hours per week, hired February 20, 2008 (18 completed years), 31.5 hours as of October 24. She asks "How much PTO do I earn each pay period, and how much will I have by the end of the year?"
+- v1: "You earn 7 hours of PTO each biweekly pay period. Your balance was 31.5 hours as of October 24, 2026, and the projection shows 59.5 hours by December 31, 2026."
+- v1.1: the same, 7 hours and 59.5 hours, in every run.
+
+**Trace:** the rate comes from the `calculate_accrual` tool, and Ask HR repeats it. The tool identifies her as part-time and still returns the full-time rate:
+
+```json
+"employment_type": "hourly_pt", "accrual_basis": "part_time",
+"completed_years": 18, "tier": "10+ years", "rate_per_pay_period": 7,
+"pay_periods": 4, "projected_balance": 59.5
+```
+
+**Every part-time employee is affected.** Asked "How much PTO do I earn each pay period?", once per version, all 7 part-time employees got the full-time rate (`results/part-time-accrual-check.json`):
+
+| Employee | Completed years (tool) | Tool rate | Correct part-time rate |
+| --- | --- | --- | --- |
+| E1022 Ben Foster | 1 | 4 | 2.0 |
+| E1042 Tyrone Jackson | 3 | 5 | 2.5 |
+| E1011 Luis Ortega | 5 (actually 4, see B15) | 6 | 2.5 |
+| E1014 Grace Liu | 6 | 6 | 3.0 |
+| E1118 Stella Garcia | 12 | 7 | 3.5 |
+| E1115 Ruth Ramos | 17 | 7 | 3.5 |
+| E1120 Elise Murphy | 18 | 7 | 3.5 |
+
+The tool's own `cap_hours: 80` and `carryover_max_hours: 40` are the part-time values. Only the rate is wrong.
+
+**Expected** (`pto-policy.md`, "Accrual rate table"): part-time employees accrue half the full-time rate: 2.0, 2.5, 3.0 and 3.5 hours per pay period for 0 to 1, 2 to 4, 5 to 9 and 10+ completed years. For Elise: 3.5 hours per pay period, and 31.5 + 4 × 3.5 = 45.5 hours by December 31 (periods 22 to 25 end by then).
+
+**Notes:**
+- Full-time accrual is right: T02 (E1012 Hannah Brooks) and T03 (E1032 Noah Patel) are 3/3 on both versions, and the tool returned their correct full-time rates, 6 and 7 hours. Before T65, every accrual test used a full-time employee, which is why this wasn't found earlier.
+- A possible Tamarack workaround, **not tested**: a custom instruction to take part-time accrual rates from the "Accrual rate table" in `pto-policy.md`, not from `calculate_accrual`.
+
+## B15. Accrual tier changes before the hire anniversary
+
+**Severity:** Medium. Projections are off by a few hours for employees whose anniversary moves them into a new tier later in the year. **Versions:** both.
+
+**Repro** (2026-11-09 clock, "How much PTO will I have by December 31?", once per version, `results/luis-accrual-check.json`):
+
+| Employee | Hire date | Anniversary moves them to | Tool: completed years for periods 22 to 25 | Correct |
+| --- | --- | --- | --- | --- |
+| E1011 Luis Ortega, part-time | 2021-12-01 | 5 years on Tue Dec 1 | 5, 5, 5, 5 | 4, 4, 4 (periods 22 to 24 start before Dec 1), then 5 from period 25 (starts Sun Dec 6) |
+| E1041 Marisol Reyes, full-time | 2016-11-20 | 10 years on Fri Nov 20 | 10, 10, 10, 10 | 9, 9 (periods 22 and 23 start before Nov 20), then 10 from period 24 (starts Sun Nov 22) |
+
+Effect on the year-end projection:
+- **Luis:** the tool projects 65.5 hours (41.5 + 4 × 6; also wrong because of B14). The correct figure is 41.5 + 3 × 2.5 + 3.0 = 52.0 hours.
+- **Marisol:** the tool projects 132 hours (104 + 4 × 7). The correct figure is 104 + 6 + 6 + 7 + 7 = 130 hours.
+
+**Expected** (`pto-policy.md`, "When your PTO accrual rate changes"): the tier is set by completed years of service on the first day of each pay period. A higher rate starts with the first pay period that begins on or after the anniversary.
+
+**Notes:**
+- For all 11 employees whose `calculate_accrual` results were recorded (the 7 part-time employees, Marisol, and E1012, E1032 and E1070 in the saved suite runs), the tool's completed years equal 2026 minus the hire year. That is consistent with counting years by calendar year, ignoring the month and day, so the tier would change on January 1 instead of at the anniversary. For employees whose anniversary has already passed this year, the two methods agree, so only Luis and Marisol show the error.
+- In the employee list, only these two employees cross a rate tier between now and December 31. Other anniversaries in that window (E1080, E1119, E1125) stay within the same tier.
+

@@ -1,0 +1,323 @@
+[
+ {
+  "version": "ASK_HR_BASE_URL",
+  "employee_id": "E1011",
+  "question": "How much PTO will I have by December 31?",
+  "reply": "Your projected PTO balance on December 31 is 65.5 hours, assuming you don\u2019t use any PTO before then. That\u2019s above the 40-hour part-time carryover limit, so any amount over 40 hours is forfeited at year-end.",
+  "calculate_accrual": [
+   {
+    "employee_id": "E1011",
+    "employment_type": "hourly_pt",
+    "accrual_basis": "part_time",
+    "as_of": "2026-10-24",
+    "balance_hours": 41.5,
+    "current_pay_period": {
+     "start": "2026-11-08",
+     "end": "2026-11-21"
+    },
+    "completed_years": 5,
+    "tier": "5 to 10 years",
+    "rate_per_pay_period": 6,
+    "cap_hours": 80,
+    "carryover_max_hours": 40,
+    "rule": "Tier is set by completed years of service on the first day of each pay period. At the cap, accrual fills the balance to the cap and pauses until it drops below.",
+    "through_date": "2026-12-31",
+    "pay_periods": 4,
+    "periods": [
+     {
+      "start": "2026-10-25",
+      "end": "2026-11-07",
+      "completed_years": 5,
+      "rate_per_pay_period": 6,
+      "accrued": 6,
+      "balance_after": 47.5
+     },
+     {
+      "start": "2026-11-08",
+      "end": "2026-11-21",
+      "completed_years": 5,
+      "rate_per_pay_period": 6,
+      "accrued": 6,
+      "balance_after": 53.5
+     },
+     {
+      "start": "2026-11-22",
+      "end": "2026-12-05",
+      "completed_years": 5,
+      "rate_per_pay_period": 6,
+      "accrued": 6,
+      "balance_after": 59.5
+     },
+     {
+      "start": "2026-12-06",
+      "end": "2026-12-19",
+      "completed_years": 5,
+      "rate_per_pay_period": 6,
+      "accrued": 6,
+      "balance_after": 65.5
+     }
+    ],
+    "projected_balance": 65.5,
+    "projection_note": "projected_balance is the balance on through_date. Only pay periods that end on or before through_date are counted. Projection adds accruals only; it does not subtract upcoming PTO.",
+    "upcoming_approved": []
+   }
+  ]
+ },
+ {
+  "version": "ASK_HR_V11_BASE_URL",
+  "employee_id": "E1011",
+  "question": "How much PTO will I have by December 31?",
+  "reply": "Your projected PTO balance on December 31 is 65.5 hours, assuming you take no PTO before then. Part-time employees can carry over up to 40 hours on January 1, so any balance above 40 hours at year-end will be forfeited.",
+  "calculate_accrual": [
+   {
+    "employee_id": "E1011",
+    "employment_type": "hourly_pt",
+    "accrual_basis": "part_time",
+    "as_of": "2026-10-24",
+    "balance_hours": 41.5,
+    "current_pay_period": {
+     "start": "2026-11-08",
+     "end": "2026-11-21"
+    },
+    "completed_years": 5,
+    "tier": "5 to 10 years",
+    "rate_per_pay_period": 6,
+    "cap_hours": 80,
+    "carryover_max_hours": 40,
+    "rule": "Tier is set by completed years of service on the first day of each pay period. At the cap, accrual fills the balance to the cap and pauses until it drops below.",
+    "through_date": "2026-12-31",
+    "pay_periods": 4,
+    "periods": [
+     {
+      "start": "2026-10-25",
+      "end": "2026-11-07",
+      "completed_years": 5,
+      "rate_per_pay_period": 6,
+      "accrued": 6,
+      "balance_after": 47.5
+     },
+     {
+      "start": "2026-11-08",
+      "end": "2026-11-21",
+      "completed_years": 5,
+      "rate_per_pay_period": 6,
+      "accrued": 6,
+      "balance_after": 53.5
+     },
+     {
+      "start": "2026-11-22",
+      "end": "2026-12-05",
+      "completed_years": 5,
+      "rate_per_pay_period": 6,
+      "accrued": 6,
+      "balance_after": 59.5
+     },
+     {
+      "start": "2026-12-06",
+      "end": "2026-12-19",
+      "completed_years": 5,
+      "rate_per_pay_period": 6,
+      "accrued": 6,
+      "balance_after": 65.5
+     }
+    ],
+    "projected_balance": 65.5,
+    "projection_note": "projected_balance is the balance on through_date. Only pay periods that end on or before through_date are counted. Projection adds accruals only; it does not subtract upcoming PTO.",
+    "upcoming_approved": []
+   }
+  ]
+ },
+ {
+  "version": "ASK_HR_BASE_URL",
+  "employee_id": "E1041",
+  "question": "How much PTO will I have by December 31?",
+  "reply": "Your balance was 104 hours as of October 24. The projection through December 31 includes four accruals, bringing it to 132 hours by December 19. Your next accrual is for the pay period ending January 2, 2027, so it is not included by December 31. This assumes you don\u2019t use PTO before then. Of the 132 hours, up to 80 can carry into 2027; any amount above that is forfeited at year-end.",
+  "calculate_accrual": [
+   {
+    "employee_id": "E1041",
+    "employment_type": "hourly_ft",
+    "accrual_basis": "full_time",
+    "as_of": "2026-10-24",
+    "balance_hours": 104,
+    "current_pay_period": {
+     "start": "2026-11-08",
+     "end": "2026-11-21"
+    },
+    "completed_years": 10,
+    "tier": "10+ years",
+    "rate_per_pay_period": 7,
+    "cap_hours": 160,
+    "carryover_max_hours": 80,
+    "rule": "Tier is set by completed years of service on the first day of each pay period. At the cap, accrual fills the balance to the cap and pauses until it drops below.",
+    "through_date": "2026-12-31",
+    "pay_periods": 4,
+    "periods": [
+     {
+      "start": "2026-10-25",
+      "end": "2026-11-07",
+      "completed_years": 10,
+      "rate_per_pay_period": 7,
+      "accrued": 7,
+      "balance_after": 111
+     },
+     {
+      "start": "2026-11-08",
+      "end": "2026-11-21",
+      "completed_years": 10,
+      "rate_per_pay_period": 7,
+      "accrued": 7,
+      "balance_after": 118
+     },
+     {
+      "start": "2026-11-22",
+      "end": "2026-12-05",
+      "completed_years": 10,
+      "rate_per_pay_period": 7,
+      "accrued": 7,
+      "balance_after": 125
+     },
+     {
+      "start": "2026-12-06",
+      "end": "2026-12-19",
+      "completed_years": 10,
+      "rate_per_pay_period": 7,
+      "accrued": 7,
+      "balance_after": 132
+     }
+    ],
+    "projected_balance": 132,
+    "projection_note": "projected_balance is the balance on through_date. Only pay periods that end on or before through_date are counted. Projection adds accruals only; it does not subtract upcoming PTO.",
+    "upcoming_approved": []
+   }
+  ]
+ },
+ {
+  "version": "ASK_HR_V11_BASE_URL",
+  "employee_id": "E1041",
+  "question": "How much PTO will I have by December 31?",
+  "reply": "Based on your current balance and projected accruals, you\u2019re expected to have 132 hours by December 31, before any PTO you use. You\u2019re a full-time employee, so any amount over the 80-hour carryover limit is forfeited at year-end; if you use no PTO before then, 52 hours would be forfeited.",
+  "calculate_accrual": [
+   {
+    "employee_id": "E1041",
+    "employment_type": "hourly_ft",
+    "accrual_basis": "full_time",
+    "as_of": "2026-10-24",
+    "balance_hours": 104,
+    "current_pay_period": {
+     "start": "2026-11-08",
+     "end": "2026-11-21"
+    },
+    "completed_years": 10,
+    "tier": "10+ years",
+    "rate_per_pay_period": 7,
+    "cap_hours": 160,
+    "carryover_max_hours": 80,
+    "rule": "Tier is set by completed years of service on the first day of each pay period. At the cap, accrual fills the balance to the cap and pauses until it drops below.",
+    "through_date": "2026-12-31",
+    "pay_periods": 4,
+    "periods": [
+     {
+      "start": "2026-10-25",
+      "end": "2026-11-07",
+      "completed_years": 10,
+      "rate_per_pay_period": 7,
+      "accrued": 7,
+      "balance_after": 111
+     },
+     {
+      "start": "2026-11-08",
+      "end": "2026-11-21",
+      "completed_years": 10,
+      "rate_per_pay_period": 7,
+      "accrued": 7,
+      "balance_after": 118
+     },
+     {
+      "start": "2026-11-22",
+      "end": "2026-12-05",
+      "completed_years": 10,
+      "rate_per_pay_period": 7,
+      "accrued": 7,
+      "balance_after": 125
+     },
+     {
+      "start": "2026-12-06",
+      "end": "2026-12-19",
+      "completed_years": 10,
+      "rate_per_pay_period": 7,
+      "accrued": 7,
+      "balance_after": 132
+     }
+    ],
+    "projected_balance": 132,
+    "projection_note": "projected_balance is the balance on through_date. Only pay periods that end on or before through_date are counted. Projection adds accruals only; it does not subtract upcoming PTO.",
+    "upcoming_approved": []
+   },
+   {
+    "employee_id": "E1041",
+    "employment_type": "hourly_ft",
+    "accrual_basis": "full_time",
+    "as_of": "2026-10-24",
+    "balance_hours": 104,
+    "current_pay_period": {
+     "start": "2026-11-08",
+     "end": "2026-11-21"
+    },
+    "completed_years": 10,
+    "tier": "10+ years",
+    "rate_per_pay_period": 7,
+    "cap_hours": 160,
+    "carryover_max_hours": 80,
+    "rule": "Tier is set by completed years of service on the first day of each pay period. At the cap, accrual fills the balance to the cap and pauses until it drops below.",
+    "through_date": "2027-01-02",
+    "pay_periods": 5,
+    "periods": [
+     {
+      "start": "2026-10-25",
+      "end": "2026-11-07",
+      "completed_years": 10,
+      "rate_per_pay_period": 7,
+      "accrued": 7,
+      "balance_after": 111
+     },
+     {
+      "start": "2026-11-08",
+      "end": "2026-11-21",
+      "completed_years": 10,
+      "rate_per_pay_period": 7,
+      "accrued": 7,
+      "balance_after": 118
+     },
+     {
+      "start": "2026-11-22",
+      "end": "2026-12-05",
+      "completed_years": 10,
+      "rate_per_pay_period": 7,
+      "accrued": 7,
+      "balance_after": 125
+     },
+     {
+      "start": "2026-12-06",
+      "end": "2026-12-19",
+      "completed_years": 10,
+      "rate_per_pay_period": 7,
+      "accrued": 7,
+      "balance_after": 132
+     },
+     {
+      "start": "2026-12-20",
+      "end": "2027-01-02",
+      "completed_years": 10,
+      "rate_per_pay_period": 7,
+      "accrued": 7,
+      "balance_after": 87
+     }
+    ],
+    "projected_balance": 87,
+    "forfeited_on_december_31": 52,
+    "projection_note": "projected_balance is the balance on through_date. Only pay periods that end on or before through_date are counted. Projection adds accruals only; it does not subtract upcoming PTO.",
+    "upcoming_approved": []
+   }
+  ]
+ }
+]

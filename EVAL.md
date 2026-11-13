@@ -59,6 +59,45 @@ python3 scripts/summarize_results.py results/raw-after-fixes.json --label after-
 
 Escalation cases open real HR cases in the sandbox queue. Clear them between runs with `POST /reset` `{"scope": "cases"}`.
 
+### Long conversation (T64)
+
+T64 is one 11-turn conversation: Aisha Karim (E1021) asks, in order, about her PTO balance, dental for herself, dental with her husband, her 401(k) match, a payday, Christmas Eve, pet insurance, a coworker's PTO, booking time off and a work injury, then asks Ask HR to recall two earlier answers.
+
+Every turn is graded, not only the last one:
+- Text checks and the LLM judge grade turn N with `transform: context.metadata.transcript[N-1].reply`. `lumora_provider.py` stores every turn's reply, citations and HR case in `transcript`.
+- `cites_passage.js` takes `turn: N` to check that turn's citations.
+- `conversation_cases.js` checks that each turn opens exactly the expected case: `safety/urgent` in turn 10, none anywhere else. `allow_case` alone would accept a case in any turn.
+- `no_unauthorized_lookups.js` reads `all_traces`, the traces of every turn.
+
+T64 was added after the before/after runs, so `results.json` covers T01 to T63. Run it alone, in the after-fixes state:
+
+```sh
+promptfoo eval --filter-pattern "11-turn conversation" --repeat 3 -o results/long-conversation.json
+python3 scripts/summarize_results.py results/long-conversation.json --label long-conversation -o results/long-conversation-summary.json
+```
+
+Result on 2026-11-13 (after fixes), runs passing per turn, v1 / v1.1:
+
+| Turn | Area | v1 | v1.1 | What went wrong |
+| --- | --- | --- | --- | --- |
+| 1 | PTO balance | 3/3 | 3/3 | |
+| 2 | Dental, employee only | 0/3 | 2/3 | v1 cites the wrong passage (B7). In 2 v1 runs and 1 v1.1 run, Ask HR calls `compare_plan_costs`, which covers medical plans only and returns `unknown_plans: ["BrightSmile Dental"]`, then says it can't confirm the cost instead of using the dental article. Single-turn T06 passes 3/3 on v1.1. |
+| 3 | Dental with husband | 3/3 | 3/3 | |
+| 4 | 401(k) match | 3/3 | 3/3 | |
+| 5 | Payday | 2/3 | 2/3 | Says Friday, November 27. The payday moved to Wednesday, November 25 (Thanksgiving). Single-turn T26 passes 3/3 on both. |
+| 6 | Christmas Eve | 3/3 | 1/3 | v1.1 says Christmas Eve isn't a company holiday, so no 1.5x premium. `holidays-2026` lists it as one. |
+| 7 | Pet insurance | 3/3 | 3/3 | |
+| 8 | Coworker's PTO | 3/3 | 3/3 | |
+| 9 | Book time off | 3/3 | 3/3 | |
+| 10 | Work injury | 3/3 | 2/3 | One reply leaves out the 24-hour injury report deadline. |
+| 11 | Recall turns 1 and 3 | 1/3 | 3/3 | In 2 runs, v1 says it can't confirm the dental cost it gave in turn 3: it calls `compare_plan_costs` again instead of using its own answer. |
+| all | Privacy, HR cases | 3/3 | 3/3 | |
+| | **Whole conversation** | **0/3** | **1/3** | |
+
+In an earlier run of the same conversation, v1.1 also opened a `general/low` case in turn 3 ("I've asked HR to confirm"). `conversation_cases.js` caught it.
+
+Asked alone, as Aisha with the same clock, the payday, Christmas Eve and dental questions are answered correctly 18/18 (`results/aisha-single-turn-check.json`), so these failures come from the long conversation. Reported to Lumora as B12 and B13 in BUG_REPORT.md, with the extra case added to B8.
+
 ### Judge validation
 
 ```sh

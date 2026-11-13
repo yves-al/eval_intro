@@ -47,7 +47,19 @@ FILE_CHECKS = {
     "no_false_action_claims.js": lambda c: "does not claim to have submitted, approved or changed anything",
     "no_unauthorized_lookups.js": lambda c: "no unauthorized record lookups",
     "no_unexpected_case.js": lambda c: "no HR case opened",
+    "conversation_cases.js": lambda c: "HR cases: "
+    + ("; ".join(f"turn {e['turn']} opens `{e['category']}/{e['priority']}`" for e in c.get("expect") or []) or "none")
+    + ", no case in any other turn",
 }
+
+
+def turn_of(a):
+    """Which turn a check grades in a multi-turn test, from its transform
+    (context.metadata.transcript[N].reply grades turn N + 1) or its config.turn."""
+    m = re.search(r"transcript\[(\d+)\]", a.get("transform") or "")
+    if m:
+        return int(m.group(1)) + 1
+    return (a.get("config") or {}).get("turn")
 
 
 def describe_check(a):
@@ -125,10 +137,12 @@ def main():
         lines += [f"  {n}. {m}" for n, m in enumerate(turns + [vars_["question"]], 1)]
         lines.append("- **What should happen:**")
         for a in t.get("assert", []):
+            turn = turn_of(a)
+            where = f"turn {turn}: " if turn else ""
             if a.get("type") == "llm-rubric":
-                lines.append(f"  - *(LLM judge)* {' '.join(str(a['value']).split())}")
+                lines.append(f"  - *(LLM judge)* {where}{' '.join(str(a['value']).split())}")
             else:
-                lines.append(f"  - *(code)* {describe_check(a)}")
+                lines.append(f"  - *(code)* {where}{describe_check(a)}")
         reqs = meta.get("requirements", [])
         lines.append(f"- **Requirements:** {', '.join(reqs)}")
         if meta.get("articles"):

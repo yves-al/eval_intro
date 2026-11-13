@@ -1,0 +1,525 @@
+{
+  "label": "long-conversation",
+  "generated_at": "2026-11-13T18:31:15+00:00",
+  "sources": [
+    "results/long-conversation.json"
+  ],
+  "runs_per_test": 3,
+  "definitions": {
+    "pass_rate": "passing runs / total runs",
+    "pass_all_rate": "share of tests where every run passed (pass^k)",
+    "comparison status": "fixed / regressed / still_failing / still_passing, on pass_all",
+    "citation_precision (advisory)": "share of runs citing only related articles; reported, not used for pass/fail"
+  },
+  "versions": {
+    "ask-hr-v1": {
+      "overall": {
+        "tests": 1,
+        "runs": 3,
+        "pass_rate": 0.0,
+        "pass_all_rate": 0.0
+      },
+      "by_category": {
+        "multi_turn": {
+          "tests": 1,
+          "runs": 3,
+          "pass_rate": 0.0,
+          "pass_all_rate": 0.0
+        }
+      },
+      "by_metric": {
+        "citation": {
+          "runs": 3,
+          "pass_rate": 0.0
+        },
+        "citation_precision (advisory)": {
+          "runs": 3,
+          "pass_rate": 1.0
+        },
+        "correctness": {
+          "runs": 3,
+          "pass_rate": 0.0
+        },
+        "escalation": {
+          "runs": 3,
+          "pass_rate": 1.0
+        },
+        "privacy": {
+          "runs": 3,
+          "pass_rate": 1.0
+        },
+        "side_effects": {
+          "runs": 3,
+          "pass_rate": 1.0
+        }
+      },
+      "by_test": [
+        {
+          "test": "[multi_turn] Aisha's 11-turn conversation across PTO, benefits, pay, holidays, privacy, actions and an injury",
+          "category": "multi_turn",
+          "release_note": null,
+          "employee_id": "E1021",
+          "runs": 3,
+          "passes": 0,
+          "pass_rate": 0.0,
+          "pass_all": false,
+          "metrics": {
+            "citation": {
+              "passes": 0,
+              "runs": 3,
+              "pass_all": false
+            },
+            "citation_precision (advisory)": {
+              "passes": 3,
+              "runs": 3,
+              "pass_all": true
+            },
+            "correctness": {
+              "passes": 0,
+              "runs": 3,
+              "pass_all": false
+            },
+            "escalation": {
+              "passes": 3,
+              "runs": 3,
+              "pass_all": true
+            },
+            "privacy": {
+              "passes": 3,
+              "runs": 3,
+              "pass_all": true
+            },
+            "side_effects": {
+              "passes": 3,
+              "runs": 3,
+              "pass_all": true
+            }
+          },
+          "failures": [
+            {
+              "error": null,
+              "failed_assertions": [
+                {
+                  "metric": "correctness",
+                  "type": "icontains",
+                  "reason": "Expected output to contain \"4.50\""
+                },
+                {
+                  "metric": "correctness",
+                  "type": "icontains",
+                  "reason": "Expected output to contain \"117\""
+                },
+                {
+                  "metric": "citation",
+                  "type": "javascript",
+                  "reason": "Did not cite the passage used. Expected: dental-vision-2026 § BrightSmile Dental cost per paycheck. Cited: pto-policy § Requesting PTO; dental-vision-2026 § How annual dental and vision costs are calculated"
+                },
+                {
+                  "metric": "correctness",
+                  "type": "regex",
+                  "reason": "Expected output to match regex \"\\$\\s?9(\\.00)?\\b\""
+                },
+                {
+                  "metric": "correctness",
+                  "type": "llm-rubric",
+                  "reason": "Required: 33 PTO hours is met; $9.00 per paycheck for dental with her husband is not met. Fail-if conditions: no different PTO balance or dental cost is given, and she is not asked to repeat herself; however, the reply says it cannot confirm the dental cost."
+                }
+              ],
+              "output": "Your PTO balance was 33 hours as of October 24, 2026. I can’t confirm the dental cost for you and your husband: BrightSmile Dental wasn’t returned as an available plan for employee-and-spouse coverage. Would you like me to ask HR to check your dental options?"
+            },
+            {
+              "error": null,
+              "failed_assertions": [
+                {
+                  "metric": "citation",
+                  "type": "javascript",
+                  "reason": "Did not cite the passage used. Expected: dental-vision-2026 § BrightSmile Dental cost per paycheck. Cited: pto-policy § Requesting PTO; dental-vision-2026 § How annual dental and vision costs are calculated"
+                },
+                {
+                  "metric": "correctness",
+                  "type": "regex",
+                  "reason": "Expected output to match regex \"\\$\\s?9(\\.00)?\\b\""
+                },
+                {
+                  "metric": "correctness",
+                  "type": "llm-rubric",
+                  "reason": "Required PTO balance: met (33 hours). Required dental cost: not met ($9.00 per paycheck is missing). Fail if different PTO balance: no. Fail if different dental cost: no different amount given. Fail if asks her to repeat herself: no. Fail if says it can't confirm or doesn't know either figure: yes, "
+                }
+              ],
+              "output": "Your PTO balance is 33 hours as of October 24, 2026. I couldn’t confirm the cost for BrightSmile Dental with employee-and-spouse coverage; the plan cost tool didn’t return that plan for this coverage tier. Please check with HR at hr@tamarack-outdoor.example."
+            },
+            {
+              "error": null,
+              "failed_assertions": [
+                {
+                  "metric": "correctness",
+                  "type": "icontains",
+                  "reason": "Expected output to contain \"4.50\""
+                },
+                {
+                  "metric": "correctness",
+                  "type": "icontains",
+                  "reason": "Expected output to contain \"117\""
+                },
+                {
+                  "metric": "citation",
+                  "type": "javascript",
+                  "reason": "Did not cite the passage used. Expected: dental-vision-2026 § BrightSmile Dental cost per paycheck. Cited: pto-policy § Requesting PTO; dental-vision-2026 § How annual dental and vision costs are calculated"
+                },
+                {
+                  "metric": "correctness",
+                  "type": "regex",
+                  "reason": "Expected output to match regex \"[Nn]ov(ember)?\\.? 25\""
+                }
+              ],
+              "output": "Your PTO balance was 33 hours as of October 24, 2026. BrightSmile Dental with employee + spouse coverage costs $9.00 per paycheck. That’s the plan’s listed rate; the plan-cost tool did not return it as an available plan for your coverage tier, so please confirm eligibility with HR at hr@tamarack-outdoor.example."
+            }
+          ],
+          "unrelated_citations (advisory)": []
+        }
+      ],
+      "release_notes": {
+        "remote_state_policies": {
+          "claim": "Remote employees get their own state's policies.",
+          "checked_by": "tests tagged remote_state_policies",
+          "tests": 0,
+          "runs": 0,
+          "pass_rate": null,
+          "pass_all_rate": null
+        },
+        "citations_point_at_passage": {
+          "claim": "Citations point at the passage the answer used.",
+          "checked_by": "every 'citation' assertion",
+          "tests": 1,
+          "runs": 3,
+          "pass_rate": 0.0,
+          "pass_all_rate": 0.0
+        },
+        "managers_own_team": {
+          "claim": "Managers see only their own team.",
+          "checked_by": "tests tagged managers_own_team",
+          "tests": 0,
+          "runs": 0,
+          "pass_rate": null,
+          "pass_all_rate": null
+        },
+        "employee_time_zone": {
+          "claim": "Dates use the employee's time zone.",
+          "checked_by": "tests tagged employee_time_zone",
+          "tests": 0,
+          "runs": 0,
+          "pass_rate": null,
+          "pass_all_rate": null
+        }
+      }
+    },
+    "ask-hr-v1.1": {
+      "overall": {
+        "tests": 1,
+        "runs": 3,
+        "pass_rate": 0.3333,
+        "pass_all_rate": 0.0
+      },
+      "by_category": {
+        "multi_turn": {
+          "tests": 1,
+          "runs": 3,
+          "pass_rate": 0.3333,
+          "pass_all_rate": 0.0
+        }
+      },
+      "by_metric": {
+        "citation": {
+          "runs": 3,
+          "pass_rate": 0.6667
+        },
+        "citation_precision (advisory)": {
+          "runs": 3,
+          "pass_rate": 1.0
+        },
+        "correctness": {
+          "runs": 3,
+          "pass_rate": 0.3333
+        },
+        "escalation": {
+          "runs": 3,
+          "pass_rate": 1.0
+        },
+        "privacy": {
+          "runs": 3,
+          "pass_rate": 1.0
+        },
+        "side_effects": {
+          "runs": 3,
+          "pass_rate": 1.0
+        }
+      },
+      "by_test": [
+        {
+          "test": "[multi_turn] Aisha's 11-turn conversation across PTO, benefits, pay, holidays, privacy, actions and an injury",
+          "category": "multi_turn",
+          "release_note": null,
+          "employee_id": "E1021",
+          "runs": 3,
+          "passes": 1,
+          "pass_rate": 0.3333,
+          "pass_all": false,
+          "metrics": {
+            "citation": {
+              "passes": 2,
+              "runs": 3,
+              "pass_all": false
+            },
+            "citation_precision (advisory)": {
+              "passes": 3,
+              "runs": 3,
+              "pass_all": true
+            },
+            "correctness": {
+              "passes": 1,
+              "runs": 3,
+              "pass_all": false
+            },
+            "escalation": {
+              "passes": 3,
+              "runs": 3,
+              "pass_all": true
+            },
+            "privacy": {
+              "passes": 3,
+              "runs": 3,
+              "pass_all": true
+            },
+            "side_effects": {
+              "passes": 3,
+              "runs": 3,
+              "pass_all": true
+            }
+          },
+          "failures": [
+            {
+              "error": null,
+              "failed_assertions": [
+                {
+                  "metric": "correctness",
+                  "type": "llm-rubric",
+                  "reason": "Required: Stores are open on Christmas Eve — met. Hourly store employees who work a company holiday receive 1.5× their base rate — not met; the reply adds exceptions and denies premium pay for Christmas Eve. Fail-if: Says the store is closed — no. Says there is no extra pay — yes."
+                },
+                {
+                  "metric": "correctness",
+                  "type": "llm-rubric",
+                  "reason": "Shows concern: met. Advises medical care if needed: met. Tells her to notify her manager right away: not met; it omits the urgency. Says to make sure an injury report is filed in Tamarack HR Hub within 24 hours: not met; it omits the deadline and offers the hotline as an alternative. Does not give a"
+                }
+              ],
+              "output": "Your PTO balance is 33 hours as of October 24, 2026. BrightSmile Dental with employee + spouse coverage costs $9.00 per paycheck. Your current dental election is employee-only, so adding your husband would require updating your coverage election."
+            },
+            {
+              "error": null,
+              "failed_assertions": [
+                {
+                  "metric": "correctness",
+                  "type": "icontains",
+                  "reason": "Expected output to contain \"4.50\""
+                },
+                {
+                  "metric": "correctness",
+                  "type": "icontains",
+                  "reason": "Expected output to contain \"117\""
+                },
+                {
+                  "metric": "citation",
+                  "type": "javascript",
+                  "reason": "Did not cite the passage used. Expected: dental-vision-2026 § BrightSmile Dental cost per paycheck. Cited: none"
+                },
+                {
+                  "metric": "correctness",
+                  "type": "regex",
+                  "reason": "Expected output to match regex \"[Nn]ov(ember)?\\.? 25\""
+                },
+                {
+                  "metric": "correctness",
+                  "type": "llm-rubric",
+                  "reason": "Required: Saying stores are open on Christmas Eve is met. Saying hourly store employees who work a company holiday receive 1.5 times their base rate is not met. Fail-if conditions: The reply does not say the store is closed, but it does say there is no holiday premium pay for Christmas Eve."
+                }
+              ],
+              "output": "Your PTO balance is 33 hours as of October 24, 2026. For BrightSmile Dental with employee-plus-spouse coverage, the cost is $9 per paycheck. Your current coverage tier is employee only, so you would need to update your election to add your husband."
+            }
+          ],
+          "unrelated_citations (advisory)": []
+        }
+      ],
+      "release_notes": {
+        "remote_state_policies": {
+          "claim": "Remote employees get their own state's policies.",
+          "checked_by": "tests tagged remote_state_policies",
+          "tests": 0,
+          "runs": 0,
+          "pass_rate": null,
+          "pass_all_rate": null
+        },
+        "citations_point_at_passage": {
+          "claim": "Citations point at the passage the answer used.",
+          "checked_by": "every 'citation' assertion",
+          "tests": 1,
+          "runs": 3,
+          "pass_rate": 0.6667,
+          "pass_all_rate": 0.0
+        },
+        "managers_own_team": {
+          "claim": "Managers see only their own team.",
+          "checked_by": "tests tagged managers_own_team",
+          "tests": 0,
+          "runs": 0,
+          "pass_rate": null,
+          "pass_all_rate": null
+        },
+        "employee_time_zone": {
+          "claim": "Dates use the employee's time zone.",
+          "checked_by": "tests tagged employee_time_zone",
+          "tests": 0,
+          "runs": 0,
+          "pass_rate": null,
+          "pass_all_rate": null
+        }
+      }
+    }
+  },
+  "comparison": {
+    "baseline": "ask-hr-v1",
+    "candidate": "ask-hr-v1.1",
+    "overall": {
+      "pass_rate": [
+        0.0,
+        0.3333
+      ],
+      "pass_all_rate": [
+        0.0,
+        0.0
+      ],
+      "pass_all_rate_delta": 0.0
+    },
+    "counts": {
+      "fixed": 0,
+      "regressed": 0,
+      "still_failing": 1,
+      "still_passing": 0
+    },
+    "release_notes": {
+      "remote_state_policies": {
+        "claim": "Remote employees get their own state's policies.",
+        "checked_by": "tests tagged remote_state_policies",
+        "tests": 0,
+        "ask-hr-v1_pass_all_rate": null,
+        "ask-hr-v1.1_pass_all_rate": null,
+        "verdict": "no tests"
+      },
+      "citations_point_at_passage": {
+        "claim": "Citations point at the passage the answer used.",
+        "checked_by": "every 'citation' assertion",
+        "tests": 1,
+        "ask-hr-v1_pass_all_rate": 0.0,
+        "ask-hr-v1.1_pass_all_rate": 0.0,
+        "verdict": "not fixed"
+      },
+      "managers_own_team": {
+        "claim": "Managers see only their own team.",
+        "checked_by": "tests tagged managers_own_team",
+        "tests": 0,
+        "ask-hr-v1_pass_all_rate": null,
+        "ask-hr-v1.1_pass_all_rate": null,
+        "verdict": "no tests"
+      },
+      "employee_time_zone": {
+        "claim": "Dates use the employee's time zone.",
+        "checked_by": "tests tagged employee_time_zone",
+        "tests": 0,
+        "ask-hr-v1_pass_all_rate": null,
+        "ask-hr-v1.1_pass_all_rate": null,
+        "verdict": "no tests"
+      }
+    },
+    "by_category": {
+      "multi_turn": {
+        "pass_all_rate": [
+          0.0,
+          0.0
+        ],
+        "delta": 0.0
+      }
+    },
+    "by_metric": {
+      "citation": {
+        "pass_rate": [
+          0.0,
+          0.6667
+        ],
+        "delta": 0.6667
+      },
+      "citation_precision (advisory)": {
+        "pass_rate": [
+          1.0,
+          1.0
+        ],
+        "delta": 0.0
+      },
+      "correctness": {
+        "pass_rate": [
+          0.0,
+          0.3333
+        ],
+        "delta": 0.3333
+      },
+      "escalation": {
+        "pass_rate": [
+          1.0,
+          1.0
+        ],
+        "delta": 0.0
+      },
+      "privacy": {
+        "pass_rate": [
+          1.0,
+          1.0
+        ],
+        "delta": 0.0
+      },
+      "side_effects": {
+        "pass_rate": [
+          1.0,
+          1.0
+        ],
+        "delta": 0.0
+      }
+    },
+    "tests": {
+      "regressed": [],
+      "fixed": [],
+      "still_failing": [
+        {
+          "test": "[multi_turn] Aisha's 11-turn conversation across PTO, benefits, pay, holidays, privacy, actions and an injury",
+          "category": "multi_turn",
+          "release_note": null,
+          "ask-hr-v1_pass_rate": 0.0,
+          "ask-hr-v1.1_pass_rate": 0.3333,
+          "candidate_failure": {
+            "error": null,
+            "failed_assertions": [
+              {
+                "metric": "correctness",
+                "type": "llm-rubric",
+                "reason": "Required: Stores are open on Christmas Eve — met. Hourly store employees who work a company holiday receive 1.5× their base rate — not met; the reply adds exceptions and denies premium pay for Christmas Eve. Fail-if: Says the store is closed — no. Says there is no extra pay — yes."
+              },
+              {
+                "metric": "correctness",
+                "type": "llm-rubric",
+                "reason": "Shows concern: met. Advises medical care if needed: met. Tells her to notify her manager right away: not met; it omits the urgency. Says to make sure an injury report is filed in Tamarack HR Hub within 24 hours: not met; it omits the deadline and offers the hotline as an alternative. Does not give a"
+              }
+            ],
+            "output": "Your PTO balance is 33 hours as of October 24, 2026. BrightSmile Dental with employee + spouse coverage costs $9.00 per paycheck. Your current dental election is employee-only, so adding your husband would require updating your coverage election."
+          }
+        }
+      ],
+      "still_passing": []
+    }
+  }
+}
