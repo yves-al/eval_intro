@@ -17,9 +17,10 @@ def _post_chat(base_url, headers, payload):
     for attempt in range(1, MAX_ATTEMPTS + 1):
         try:
             resp = requests.post(base_url + "/chat", json=payload, headers=headers, timeout=120)
-        except requests.ConnectionError:
-            # The sandbox sometimes closes the connection without answering. A long
-            # conversation sends many requests per run, so one drop would lose the run.
+        except (requests.ConnectionError, requests.Timeout):
+            # The sandbox sometimes closes the connection without answering, or takes
+            # longer than the timeout. A long conversation sends many requests per run,
+            # so one drop would lose the run.
             if attempt < MAX_ATTEMPTS:
                 time.sleep(2 * attempt)
                 continue

@@ -5,6 +5,7 @@ Usage:
     python3 scripts/apply_fixes.py            # apply all fixes (idempotent)
     python3 scripts/apply_fixes.py --show     # print current state, change nothing
     python3 scripts/apply_fixes.py --reset    # POST /reset {"scope": "all"}: back to the starting state
+    python3 scripts/apply_fixes.py --clear-cases  # POST /reset {"scope": "cases"}: empty the HR case queue only
 
 Each fix is described in FIXES.md.
 """
@@ -116,9 +117,14 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--show", action="store_true")
     ap.add_argument("--reset", action="store_true")
+    ap.add_argument("--clear-cases", action="store_true")
     a = ap.parse_args()
     if a.reset:
         print(api("POST", "/reset", {"scope": "all"}))
+    elif a.clear_cases:
+        # Cases opened by the before-fixes run would otherwise stay in the queue
+        # (and keep the HR-0001xx numbering going) during the after-fixes run.
+        print(api("POST", "/reset", {"scope": "cases"}))
     elif a.show:
         show()
     else:

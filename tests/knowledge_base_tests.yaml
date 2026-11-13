@@ -139,12 +139,11 @@
     employee_id: E1041 # Marisol Reyes, Basecamp PPO family
     question: "How much am I paying per year for my medical plan?"
   assert:
+    # The annual cost is what was asked: $214 per paycheck × 26 = $5,564. (A check for
+    # "214" was removed on 2026-11-13: it failed correct replies that gave only the annual figure.)
     - type: regex
       metric: correctness
       value: "5,?564"
-    - type: icontains
-      metric: correctness
-      value: "214"
 
 - description: "[benefits] Part-timer asks about medical insurance"
   metadata: { category: eligibility, articles: [benefits-eligibility, medical-plans-2026], requirements: [R1, R2] }
